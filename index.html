@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi Townhall Q&A Live | CPRSK KKM</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        :root {
+            --font-scale: 1;
+        }
+
+        html {
+            font-size: calc(15px * var(--font-scale));
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Dark Mode Styling */
+        body.dark-mode {
+            background-color: #06090f;
+            color: #f1f5f9;
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(135deg, #020617 0%, #0b1329 50%, #1e1b4b 100%);
+            border-bottom-color: #1e293b;
+        }
+
+        body.dark-mode .bg-white {
+            background-color: #0e1726 !important;
+            color: #f3f4f6 !important;
+            border-color: #1f293d !important;
+        }
+
+        body.dark-mode .text-slate-800,
+        body.dark-mode .text-slate-700 {
+            color: #f8fafc !important;
+        }
+
+        body.dark-mode .text-slate-600,
+        body.dark-mode .text-slate-500 {
+            color: #94a3b8 !important;
+        }
+
+        body.dark-mode .bg-slate-50,
+        body.dark-mode .bg-slate-100 {
+            background-color: #152033 !important;
+            border-color: #1e293b !important;
+        }
+
+        body.dark-mode input,
+        body.dark-mode select,
+        body.dark-mode textarea {
+            background-color: #152033 !important;
+            color: #ffffff !important;
+            border-color: #334155 !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        body.dark-mode ::-webkit-scrollbar-track {
+            background: #090e17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        body.dark-mode ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .kkm-header-gradient {
+            background: linear-gradient(135deg, #091224 0%, #0f1f38 45%, #0369a1 100%);
+        }
+
+        .hero-banner-gradient {
+            background: linear-gradient(135deg, #091326 0%, #0c2044 50%, #1e1b4b 100%);
+        }
+
+        .card-elevated {
+            box-shadow: 0 4px 20px -3px rgba(0, 0, 0, 0.04), 0 2px 8px -2px rgba(0, 0, 0, 0.02);
+        }
+
+        .pulse-live {
+            animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .upvote-btn:active {
+            transform: scale(0.90);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+
+    <header class="kkm-header-gradient text-white border-b border-slate-700/60 sticky top-0 z-40 shadow-lg">
+        <div class="w-full max-w-[97%] mx-auto px-2 sm:px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div id="customLogoContainer" class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400/20 to-indigo-600/30 flex items-center justify-center text-xl font-bold border border-white/20 text-amber-300 shadow-inner">
+                    <i class="fa-solid fa-hospital-user"></i>
+                </div>
+
+                <div>
+                    <h1 class="font-heading font-extrabold text-base sm:text-lg leading-tight tracking-wide flex items-center gap-2">
+                        <span>KKM Q&amp;A LIVE</span>
+                        <span id="connectionBadge" class="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 text-[11px] px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-semibold tracking-wide">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-live"></span>
+                            <span>LIVE FIREBASE</span>
+                        </span>
+                    </h1>
+                    <p class="text-[11px] text-slate-300 font-normal">
+                        Cawangan Pengurusan Risiko &amp; Survelan Klinikal (CPRSK) | KKM
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 flex-wrap">
+                <!-- QR Code trigger button for audience -->
+                <button onclick="openQrModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 text-sky-200 text-xs font-semibold border border-sky-400/30 transition shadow-sm" title="Papar Kod QR untuk Diimbas">
+                    <i class="fa-solid fa-qrcode text-amber-300 text-sm"></i> 
+                    <span>Imbas QR</span>
+                </button>
+
+                <!-- Font Size Controls -->
+                <div class="flex items-center bg-white/10 rounded-lg p-0.5 border border-white/10 text-xs">
+                    <button onclick="changeFontSize(-0.1)" title="Kecilkan Saiz Teks" class="px-2 py-1 hover:bg-white/20 rounded font-bold transition">A-</button>
+                    <button onclick="resetFontSize()" title="Reset Saiz Teks" class="px-2 py-1 hover:bg-white/20 rounded font-normal text-[11px] transition">Reset</button>
+                    <button onclick="changeFontSize(0.1)" title="Besarkan Saiz Teks" class="px-2 py-1 hover:bg-white/20 rounded font-bold transition">A+</button>
+                </div>
+
+                <!-- Dark Mode Toggle Button -->
+                <button onclick="toggleDarkMode()" id="darkModeBtn" title="Tukar Mod Gelap/Terang" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-amber-300 text-xs font-semibold border border-white/20 transition">
+                    <i class="fa-solid fa-moon"></i> <span class="hidden md:inline">Mod Gelap</span>
+                </button>
+
+                <!-- Projector Stage View Trigger -->
+                <button id="projectorViewBtn" onclick="toggleProjectorView()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-semibold border border-slate-600 transition shadow-sm">
+                    <i class="fa-solid fa-display text-amber-400"></i> <span class="hidden sm:inline">Skrin Pentas</span>
+                </button>
+
+                <!-- Moderator Auth Trigger -->
+                <button id="modAuthBtn" onclick="openModModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-semibold border border-amber-500/40 transition">
+                    <i class="fa-solid fa-shield-halved"></i> <span id="modStatusText">Moderator</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-white border-b border-slate-200/80 py-3.5 px-2 sm:px-4 shadow-sm">
+        <div class="w-full max-w-[97%] mx-auto">
+            <div class="hero-banner-gradient rounded-2xl p-4 sm:p-5 text-white card-elevated relative overflow-hidden border border-slate-800">
+                <div class="absolute -right-12 -bottom-12 w-60 h-60 bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute right-1/4 -top-8 w-44 h-44 bg-indigo-500/15 rounded-full blur-2xl pointer-events-none"></div>
+
+                <div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+                    <div class="space-y-1.5 flex-1">
+                        <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-sky-500/20 text-sky-200 text-xs font-semibold border border-sky-400/30">
+                            <i class="fa-regular fa-calendar-check text-amber-400"></i>
+                            <span>SESI TOWNHALL KHAS BERSAMA KEPIMPINAN TERTINGGI PERUBATAN KKM</span>
+                        </div>
+                        
+                        <h2 class="font-heading font-extrabold text-lg sm:text-2xl text-white tracking-tight leading-snug">
+                            Transformasi Perkhidmatan &amp; Pengurusan Klinikal KKM 2026
+                        </h2>
+
+                        <!-- Official VIP Dignitaries -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1 text-xs sm:text-sm text-slate-200">
+                            <div class="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-white/10">
+                                <span class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-300 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-user-doctor"></i></span>
+                                <div>
+                                    <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Pengarah Perkembangan Perubatan</p>
+                                    <p class="font-bold text-slate-100">Dr. Nor Hayati binti Ibrahim</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-white/10">
+                                <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-user-tie"></i></span>
+                                <div>
+                                    <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">TKPK (Perubatan) KKM</p>
+                                    <p class="font-bold text-slate-100">YBhg. Dato' Dr. Mohd Azman bin Yacob</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Aggregated Stats & Quick QR Card -->
+                    <div class="flex items-center gap-3 self-start xl:self-center">
+                        <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md p-2.5 rounded-xl border border-white/15">
+                            <div class="text-center px-3 border-r border-white/15">
+                                <span id="totalQuestionsCount" class="font-heading block text-2xl font-black text-amber-400">0</span>
+                                <span class="text-[10px] text-slate-300 uppercase tracking-wider font-bold">Soalan</span>
+                            </div>
+                            <div class="text-center px-3">
+                                <span id="totalVotesCount" class="font-heading block text-2xl font-black text-sky-300">0</span>
+                                <span class="text-[10px] text-slate-300 uppercase tracking-wider font-bold">Undian</span>
+                            </div>
+                        </div>
+
+                        <!-- Mini QR preview in Hero -->
+                        <button onclick="openQrModal()" class="hidden md:flex flex-col items-center justify-center bg-white/10 hover:bg-white/15 p-2 rounded-xl border border-white/15 transition group cursor-pointer" title="Tekan untuk besarkan QR">
+                            <div id="heroMiniQr" class="w-11 h-11 bg-white p-0.5 rounded-lg overflow-hidden flex items-center justify-center"></div>
+                            <span class="text-[9px] text-sky-200 mt-1 font-semibold group-hover:text-amber-300">Imbas Masuk</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="w-full max-w-[97%] mx-auto px-2 sm:px-3 py-4 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
+
+        <!-- Left Column: Submit Question Form (Span 4 cols on large screens) -->
+        <section class="lg:col-span-4 xl:col-span-4 space-y-4">
+            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 card-elevated sticky top-16">
+                <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-3">
+                    <h3 class="font-heading font-extrabold text-slate-800 text-base sm:text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-sky-600"></i>
+                        Kemukakan Soalan
+                    </h3>
+                    <span class="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                        <i class="fa-solid fa-lock text-[10px]"></i> Dilindungi
+                    </span>
+                </div>
+
+                <form id="questionForm" onsubmit="handleQuestionSubmit(event)" class="space-y-3.5">
+                    <!-- Anonymous Toggle -->
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 flex items-center justify-between">
+                        <div>
+                            <label for="anonToggle" class="text-xs font-bold text-slate-700 block cursor-pointer">Hantar Secara Anonymous (Tanpa Nama)</label>
+                            <p class="text-[11px] text-slate-500">Nama &amp; jawatan anda tidak akan direkodkan.</p>
+                        </div>
+                        <input type="checkbox" id="anonToggle" onchange="toggleAnonMode()" checked class="w-5 h-5 accent-sky-600 rounded cursor-pointer">
+                    </div>
+
+                    <!-- User Name & Unit (Disabled if Anon) -->
+                    <div id="userInfoFields" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 opacity-50 pointer-events-none transition-all">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Pegawai</label>
+                            <input type="text" id="authorName" placeholder="Cth: Dr. Ahmad" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Fasiliti / Cawangan</label>
+                            <input type="text" id="authorUnit" placeholder="Cth: CPRSK / Hospital Putrajaya" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">
+                            Kategori / Topik Soalan <span class="text-red-500">*</span>
+                        </label>
+                        <select id="questionCategory" required class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-700 font-semibold cursor-pointer">
+                            <option value="Hala Tuju & Strategi Perkhidmatan Perubatan">Hala Tuju &amp; Strategi Perkhidmatan Perubatan</option>
+                            <option value="Dasar, Polisi & Tadbir Urus">Dasar, Polisi &amp; Tadbir Urus</option>
+                            <option value="Keselamatan & Kualiti Perkhidmatan Kesihatan">Keselamatan &amp; Kualiti Perkhidmatan Kesihatan</option>
+                            <option value="Pengurusan Risiko Klinikal" selected>Pengurusan Risiko Klinikal</option>
+                            <option value="Survelan Klinikal & Pemantauan">Survelan Klinikal &amp; Pemantauan</option>
+                            <option value="Sumber Manusia & Kompetensi">Sumber Manusia &amp; Kompetensi</option>
+                            <option value="Beban Kerja & Kesejahteraan Warga Kerja">Beban Kerja &amp; Kesejahteraan Warga Kerja</option>
+                            <option value="Penyampaian & Keberkesanan Perkhidmatan">Penyampaian &amp; Keberkesanan Perkhidmatan</option>
+                            <option value="Pendigitalan & Teknologi Kesihatan">Pendigitalan &amp; Teknologi Kesihatan</option>
+                            <option value="Data, Pelaporan & Pengurusan Maklumat">Data, Pelaporan &amp; Pengurusan Maklumat</option>
+                            <option value="Kerjasama Antara Bahagian / Cawangan / Agensi">Kerjasama Antara Bahagian / Cawangan / Agensi</option>
+                            <option value="Latihan, Pembangunan Profesional & Kerjaya">Latihan, Pembangunan Profesional &amp; Kerjaya</option>
+                            <option value="Kewangan, Sumber & Infrastruktur">Kewangan, Sumber &amp; Infrastruktur</option>
+                            <option value="Isu Operasi & Cabaran di Lapangan">Isu Operasi &amp; Cabaran di Lapangan</option>
+                            <option value="Cadangan Penambahbaikan / Inovasi">Cadangan Penambahbaikan / Inovasi</option>
+                            <option value="Lain-lain">Lain-lain</option>
+                        </select>
+                    </div>
+
+                    <!-- Question Input Textarea -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="questionContent" class="text-xs font-bold text-slate-700">
+                                Butiran Soalan <span class="text-red-500">*</span>
+                            </label>
+                            <span id="charCounter" class="text-[11px] text-slate-400 font-mono">0 / 300</span>
+                        </div>
+                        <textarea id="questionContent" rows="4" maxlength="300" required oninput="updateCharCount()" placeholder="Tuliskan soalan atau cadangan anda secara berfakta, ringkas dan berhemah..." class="w-full text-xs sm:text-sm p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 resize-none leading-relaxed"></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="w-full py-2.5 px-4 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-sky-600/25 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Hantar Soalan ke Pentas</span>
+                    </button>
+                </form>
+
+                <!-- Quick Tips Card -->
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-start gap-2 text-[11px] text-slate-500">
+                    <i class="fa-solid fa-circle-info text-sky-500 mt-0.5"></i>
+                    <p>Soalan dengan undian tertinggi akan diberi keutamaan untuk dijawab secara langsung oleh barisan kepimpinan.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="lg:col-span-8 xl:col-span-8 space-y-3.5">
+            
+            <!-- Filters and Search Bar Container -->
+            <div class="bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200 card-elevated space-y-3">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-2.5">
+                    
+                    <!-- Tabs for Top, Newest, Answered -->
+                    <div class="flex items-center bg-slate-100 p-1 rounded-xl w-full md:w-auto">
+                        <button onclick="setSortMode('top')" id="sortTopBtn" class="flex-1 md:flex-none px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-sky-700 shadow-sm">
+                            <i class="fa-solid fa-fire text-amber-500 mr-1"></i> Popular
+                        </button>
+                        <button onclick="setSortMode('newest')" id="sortNewestBtn" class="flex-1 md:flex-none px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition">
+                            <i class="fa-solid fa-clock mr-1"></i> Terkini
+                        </button>
+                        <button onclick="setSortMode('answered')" id="sortAnsweredBtn" class="flex-1 md:flex-none px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mr-1"></i> Selesai
+                        </button>
+                    </div>
+
+                    <!-- Category Filter Dropdown (All 16 Options) -->
+                    <div class="w-full md:w-72">
+                        <select id="filterCategorySelect" onchange="applyFilters()" class="w-full text-xs px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500 font-semibold text-slate-700">
+                            <option value="ALL">Semua Topik (16 Kategori)</option>
+                            <option value="Hala Tuju & Strategi Perkhidmatan Perubatan">Hala Tuju &amp; Strategi Perkhidmatan Perubatan</option>
+                            <option value="Dasar, Polisi & Tadbir Urus">Dasar, Polisi &amp; Tadbir Urus</option>
+                            <option value="Keselamatan & Kualiti Perkhidmatan Kesihatan">Keselamatan &amp; Kualiti Perkhidmatan Kesihatan</option>
+                            <option value="Pengurusan Risiko Klinikal">Pengurusan Risiko Klinikal</option>
+                            <option value="Survelan Klinikal & Pemantauan">Survelan Klinikal &amp; Pemantauan</option>
+                            <option value="Sumber Manusia & Kompetensi">Sumber Manusia &amp; Kompetensi</option>
+                            <option value="Beban Kerja & Kesejahteraan Warga Kerja">Beban Kerja &amp; Kesejahteraan Warga Kerja</option>
+                            <option value="Penyampaian & Keberkesanan Perkhidmatan">Penyampaian &amp; Keberkesanan Perkhidmatan</option>
+                            <option value="Pendigitalan & Teknologi Kesihatan">Pendigitalan &amp; Teknologi Kesihatan</option>
+                            <option value="Data, Pelaporan & Pengurusan Maklumat">Data, Pelaporan &amp; Pengurusan Maklumat</option>
+                            <option value="Kerjasama Antara Bahagian / Cawangan / Agensi">Kerjasama Antara Bahagian / Cawangan / Agensi</option>
+                            <option value="Latihan, Pembangunan Profesional & Kerjaya">Latihan, Pembangunan Profesional &amp; Kerjaya</option>
+                            <option value="Kewangan, Sumber & Infrastruktur">Kewangan, Sumber &amp; Infrastruktur</option>
+                            <option value="Isu Operasi & Cabaran di Lapangan">Isu Operasi &amp; Cabaran di Lapangan</option>
+                            <option value="Cadangan Penambahbaikan / Inovasi">Cadangan Penambahbaikan / Inovasi</option>
+                            <option value="Lain-lain">Lain-lain</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Instant Search Input -->
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                    <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Cari kandungan soalan, fasiliti atau kata kunci..." class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                </div>
+            </div>
+
+            <div id="modBar" class="hidden bg-amber-50 border border-amber-300 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2 shadow-sm">
+                <div class="flex items-center gap-2 text-xs font-bold text-amber-900">
+                    <span class="w-6 h-6 rounded-lg bg-amber-200 text-amber-800 flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </span>
+                    <span>Mod Moderator Aktif (Urus Setia CPRSK KKM)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="exportQuestionsCSV()" class="px-3 py-1.5 bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold rounded-lg border border-slate-300 transition flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-file-excel text-emerald-600"></i> Muat Turun CSV
+                    </button>
+                    <button onclick="logoutModerator()" class="px-3 py-1.5 bg-amber-200 hover:bg-amber-300 text-amber-900 text-xs font-bold rounded-lg transition">
+                        Log Keluar Mod
+                    </button>
+                </div>
+            </div>
+
+            <div id="questionsContainer" class="space-y-2.5">
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 card-elevated animate-pulse space-y-3">
+                    <div class="h-4 bg-slate-200 rounded w-1/4"></div>
+                    <div class="h-5 bg-slate-200 rounded w-3/4"></div>
+                    <div class="h-4 bg-slate-200 rounded w-1/2"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="qrModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 card-elevated space-y-4 border border-slate-200 text-center relative">
+            <button onclick="closeQrModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="space-y-1">
+                <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center mx-auto text-xl">
+                    <i class="fa-solid fa-qrcode"></i>
+                </div>
+                <h3 class="font-heading font-extrabold text-slate-900 text-lg sm:text-xl">Imbas untuk Kemukakan Soalan</h3>
+                <p class="text-xs text-slate-500">Halakan kamera telefon pintar anda untuk membuka borang townhall ini secara langsung.</p>
+            </div>
+
+            <!-- Dynamic QR Canvas Container -->
+            <div class="flex flex-col items-center justify-center py-2">
+                <div class="bg-white p-3.5 rounded-2xl border-2 border-slate-200 shadow-md inline-block">
+                    <div id="modalQrCode" class="w-52 h-52 flex items-center justify-center"></div>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-400 mt-2">Sesi Townhall CPRSK KKM</span>
+            </div>
+
+            <!-- Link copy toolbar -->
+            <div class="bg-slate-50 p-2 rounded-xl border border-slate-200 flex items-center justify-between gap-2 text-left">
+                <input type="text" id="shareUrlInput" readonly class="text-[11px] font-mono text-slate-600 bg-transparent flex-1 px-2 focus:outline-none overflow-hidden text-ellipsis whitespace-nowrap">
+                <button onclick="copyShareUrl()" class="px-3 py-1.5 bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold rounded-lg transition shrink-0 flex items-center gap-1">
+                    <i class="fa-regular fa-copy"></i> Salin Pautan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 card-elevated space-y-4 border border-slate-200">
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto text-xl">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="font-heading font-extrabold text-slate-900 text-lg">Akses Urus Setia Townhall</h3>
+                <p class="text-xs text-slate-500">Sahkan kelayakan pentadbir untuk mengawal sesi soalan.</p>
+            </div>
+
+            <form onsubmit="handleModLogin(event)" class="space-y-3">
+                <div>
+                    <!-- Secure password input without giveaway placeholder hints -->
+                    <input type="password" id="modPinInput" autocomplete="current-password" placeholder="Masukkan kata laluan pentadbir" class="w-full text-center tracking-widest text-base font-bold py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <p id="pinErrorMsg" class="text-red-500 text-xs mt-1.5 text-center hidden font-semibold">
+                        <i class="fa-solid fa-circle-exclamation"></i> Kata laluan salah. Akses ditolak.
+                    </p>
+                </div>
+
+                <div class="flex gap-2 pt-1">
+                    <button type="button" onclick="closeModModal()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition">
+                        Batal
+                    </button>
+                    <button type="submit" id="verifyPinBtn" class="flex-1 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl transition shadow-md shadow-amber-500/20">
+                        Sahkan Akses
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="projectorModal" class="fixed inset-0 bg-slate-950 text-white z-50 hidden flex flex-col justify-between p-6 sm:p-10 overflow-hidden">
+        <!-- Stage Header -->
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div class="flex items-center gap-3">
+                <span class="w-3.5 h-3.5 rounded-full bg-red-500 pulse-live"></span>
+                <div>
+                    <h2 class="font-heading font-black text-lg sm:text-xl text-amber-400 tracking-wide">
+                        SESI TOWNHALL KEPIMPINAN TERTINGGI PERUBATAN KKM
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-300">
+                        Pengarah Perkembangan Perubatan: <span class="font-bold text-white">Dr. Nor Hayati binti Ibrahim</span> &bull; 
+                        TKPK (Perubatan) KKM: <span class="font-bold text-white">YBhg. Dato' Dr. Mohd Azman bin Yacob</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <button onclick="toggleProjectorView()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition border border-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-xmark"></i> Keluar Skrin Pentas
+                </button>
+            </div>
+        </div>
+
+        <!-- Center Stage Question Presentation -->
+        <div class="relative my-auto max-w-5xl mx-auto w-full text-center space-y-6 px-4">
+            <span id="projCategory" class="inline-block px-5 py-1.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs sm:text-sm font-bold uppercase tracking-wider">
+                Pengurusan Risiko Klinikal
+            </span>
+
+            <p id="projText" class="font-heading text-2xl sm:text-4xl md:text-5xl font-black leading-tight tracking-tight text-white drop-shadow-md">
+                Sila sematkan soalan dari senarai untuk dipaparkan di skrin pentas utama.
+            </p>
+
+            <div id="projAuthor" class="text-base sm:text-xl text-slate-300 font-semibold">
+                &mdash; Urus Setia CPRSK KKM
+            </div>
+
+            <div class="inline-flex items-center gap-2 bg-amber-500/15 text-amber-400 px-5 py-2.5 rounded-2xl border border-amber-500/30 text-base font-bold shadow-lg">
+                <i class="fa-solid fa-thumbs-up text-lg"></i> <span id="projVotes" class="text-xl">0</span> Undian Warga Kerja
+            </div>
+        </div>
+
+        <!-- Stage Footer with Persistent High-Visibility Audience Scan QR -->
+        <div class="border-t border-slate-800 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-xs text-slate-400">
+                <span class="font-bold text-slate-200">Anjuran:</span> Cawangan Pengurusan Risiko &amp; Survelan Klinikal (CPRSK), Bahagian Perkembangan Perubatan KKM
+            </div>
+
+            <!-- Stage Audience QR Anchor (Slido/Mentimeter style) -->
+            <div class="flex items-center gap-3 bg-white/5 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-white/10">
+                <div class="bg-white p-1 rounded-xl shadow-inner">
+                    <div id="projectorQrCode" class="w-16 h-16 flex items-center justify-center"></div>
+                </div>
+                <div class="text-left">
+                    <p class="text-xs font-black text-amber-300 tracking-wide uppercase">Imbas Untuk Tanya Soalan</p>
+                    <p class="text-[10px] text-slate-300">Buka kamera telefon &amp; undi soalan pilihan anda</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { 
+            getFirestore, 
+            collection, 
+            doc, 
+            addDoc, 
+            updateDoc, 
+            deleteDoc, 
+            onSnapshot 
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDk_K5RcSYDdofTkZYsTV83K5Z-BX1_PWk",
+            authDomain: "kkm-townhall-cprsk.firebaseapp.com",
+            projectId: "kkm-townhall-cprsk",
+            storageBucket: "kkm-townhall-cprsk.firebasestorage.app",
+            messagingSenderId: "343668780189",
+            appId: "1:343668780189:web:50c0bfe9a09fadced03874",
+            measurementId: "G-5WC5R5CF9C"
+        };
+
+        let app = null, auth = null, db = null;
+        let isModerator = false;
+        let questionsList = [];
+        let localVotedQuestions = new Set(JSON.parse(localStorage.getItem('voted_questions_cprsk') || '[]'));
+        let currentSortMode = 'top';
+
+        const MOD_AUTH_SALT = "CPRSK_KKM_TOWNHALL_2026_SECURE_SALT_9812";
+        const _SEED_ARRAY = [0x74, 0x68, 0x32, 0x30, 0x32, 0x36];
+        let _TARGET_SALTED_HASH = null;
+
+        async function computeSha256(message) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(message);
+            const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function initSecurityToken() {
+            const raw = String.fromCharCode(..._SEED_ARRAY);
+            _TARGET_SALTED_HASH = await computeSha256(raw + ":" + MOD_AUTH_SALT);
+        }
+
+        let currentFontScale = parseFloat(localStorage.getItem('townhall_font_scale_v2') || '1.0');
+        document.documentElement.style.setProperty('--font-scale', currentFontScale);
+
+        window.changeFontSize = function(delta) {
+            currentFontScale = Math.min(Math.max(0.85, currentFontScale + delta), 1.35);
+            document.documentElement.style.setProperty('--font-scale', currentFontScale);
+            localStorage.setItem('townhall_font_scale_v2', currentFontScale);
+        };
+
+        window.resetFontSize = function() {
+            currentFontScale = 1.0;
+            document.documentElement.style.setProperty('--font-scale', currentFontScale);
+            localStorage.setItem('townhall_font_scale_v2', currentFontScale);
+        };
+
+        let isDarkMode = localStorage.getItem('townhall_dark_mode_v2') === 'true';
+        if (isDarkMode) document.body.classList.add('dark-mode');
+
+        window.toggleDarkMode = function() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            localStorage.setItem('townhall_dark_mode_v2', isDarkMode);
+            const btn = document.getElementById('darkModeBtn');
+            if (btn) {
+                btn.innerHTML = isDarkMode 
+                    ? `<i class="fa-solid fa-sun text-amber-300"></i> <span class="hidden md:inline">Mod Terang</span>`
+                    : `<i class="fa-solid fa-moon text-amber-300"></i> <span class="hidden md:inline">Mod Gelap</span>`;
+            }
+        };
+
+        async function initApp() {
+            await initSecurityToken();
+
+            try {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                try {
+                    await signInAnonymously(auth);
+                } catch (authErr) {
+                    console.warn("Anonymous Auth status in Firebase:", authErr.message);
+                }
+
+                setupLiveQuestionsListener();
+                setConnectionStatus(true, "LIVE FIREBASE");
+            } catch (err) {
+                console.error("Firebase init fallback:", err);
+                setConnectionStatus(false, "OFFLINE");
+            }
+
+            renderQuestions();
+            updateStats();
+            initQrCodes();
+        }
+
+        function getShareableUrl() {
+            const href = window.location.href;
+            if (href && !href.startsWith('about:') && !href.startsWith('blob:')) {
+                return href;
+            }
+            return "https://kkm-townhall-cprsk.web.app";
+        }
+
+        function initQrCodes() {
+            const url = getShareableUrl();
+            const shareInput = document.getElementById('shareUrlInput');
+            if (shareInput) shareInput.value = url;
+
+            const modalQr = document.getElementById('modalQrCode');
+            if (modalQr && window.QRCode) {
+                modalQr.innerHTML = "";
+                new QRCode(modalQr, {
+                    text: url,
+                    width: 200,
+                    height: 200,
+                    colorDark: "#0f172a",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+            }
+
+            const heroMini = document.getElementById('heroMiniQr');
+            if (heroMini && window.QRCode) {
+                heroMini.innerHTML = "";
+                new QRCode(heroMini, {
+                    text: url,
+                    width: 44,
+                    height: 44,
+                    colorDark: "#0f172a",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.L
+                });
+            }
+
+            const projQr = document.getElementById('projectorQrCode');
+            if (projQr && window.QRCode) {
+                projQr.innerHTML = "";
+                new QRCode(projQr, {
+                    text: url,
+                    width: 64,
+                    height: 64,
+                    colorDark: "#090d16",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+            }
+        }
+
+        function setupLiveQuestionsListener() {
+            if (!db) return;
+            const questionsCollection = collection(db, 'townhall_questions');
+
+            onSnapshot(questionsCollection, (snapshot) => {
+                const fetched = [];
+                snapshot.forEach((docSnap) => {
+                    fetched.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                questionsList = fetched;
+                updateStats();
+                renderQuestions();
+                updateProjectorView();
+            }, (error) => {
+                console.error("Firestore sync error:", error);
+                setConnectionStatus(false, "ERR SYNC");
+            });
+        }
+
+        window.handleQuestionSubmit = async function (event) {
+            event.preventDefault();
+
+            const isAnon = document.getElementById('anonToggle').checked;
+            const content = document.getElementById('questionContent').value.trim();
+            const category = document.getElementById('questionCategory').value;
+            const authorName = isAnon ? 'Anonim' : (document.getElementById('authorName').value.trim() || 'Pegawai KKM');
+            const authorUnit = isAnon ? '' : (document.getElementById('authorUnit').value.trim() || '');
+
+            if (!content) {
+                showToast("Sila tuliskan soalan anda.", "error");
+                return;
+            }
+
+            const newQuestion = {
+                content: content,
+                authorName: authorName,
+                authorUnit: authorUnit,
+                isAnonymous: isAnon,
+                category: category,
+                votes: 1,
+                status: 'active',
+                isPinned: false,
+                createdAt: Date.now()
+            };
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Menghantar ke Pentas...`;
+
+            try {
+                if (db) {
+                    const colRef = collection(db, 'townhall_questions');
+                    await addDoc(colRef, newQuestion);
+                    showToast("Soalan berjaya dihantar ke pentas townhall!", "success");
+                    document.getElementById('questionForm').reset();
+                    document.getElementById('anonToggle').checked = true;
+                    toggleAnonMode();
+                    updateCharCount();
+                } else {
+                    showToast("Sambungan Firestore tidak aktif.", "error");
+                }
+            } catch (err) {
+                console.error("Ralat menghantar:", err);
+                showToast("Gagal menghantar soalan. Sila periksa capaian.", "error");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> <span>Hantar Soalan ke Pentas</span>`;
+            }
+        };
+
+        window.upvoteQuestion = async function (qId) {
+            if (localVotedQuestions.has(qId)) {
+                showToast("Anda telah pun mengundi soalan ini.", "info");
+                return;
+            }
+
+            localVotedQuestions.add(qId);
+            localStorage.setItem('voted_questions_cprsk', JSON.stringify(Array.from(localVotedQuestions)));
+
+            const question = questionsList.find(q => q.id === qId);
+            if (!question) return;
+
+            const newVotes = (question.votes || 0) + 1;
+
+            if (db) {
+                try {
+                    const docRef = doc(db, 'townhall_questions', qId);
+                    await updateDoc(docRef, { votes: newVotes });
+                    showToast("Undian anda berjaya direkodkan!", "success");
+                } catch (err) {
+                    console.error("Ralat undian:", err);
+                }
+            }
+        };
+
+        window.togglePinQuestion = async function (qId) {
+            if (!isModerator) return;
+            const question = questionsList.find(q => q.id === qId);
+            if (!question) return;
+
+            const newPinnedState = !question.isPinned;
+
+            if (db) {
+                try {
+                    if (newPinnedState) {
+                        for (const q of questionsList) {
+                            if (q.isPinned && q.id !== qId) {
+                                await updateDoc(doc(db, 'townhall_questions', q.id), { isPinned: false });
+                            }
+                        }
+                    }
+                    const docRef = doc(db, 'townhall_questions', qId);
+                    await updateDoc(docRef, { isPinned: newPinnedState });
+                    showToast(newPinnedState ? "Disematkan ke skrin pentas!" : "Nyahsemat soalan pentas.", "info");
+                } catch (err) {
+                    console.error("Ralat pin:", err);
+                }
+            }
+        };
+
+        window.markAsAnswered = async function (qId) {
+            if (!isModerator) return;
+            const question = questionsList.find(q => q.id === qId);
+            if (!question) return;
+
+            const nextStatus = question.status === 'answered' ? 'active' : 'answered';
+
+            if (db) {
+                try {
+                    const docRef = doc(db, 'townhall_questions', qId);
+                    await updateDoc(docRef, { status: nextStatus });
+                    showToast(nextStatus === 'answered' ? "Ditanda sebagai Telah Dijawab." : "Soalan diaktifkan semula.", "info");
+                } catch (err) {
+                    console.error("Ralat kemaskini status:", err);
+                }
+            }
+        };
+
+        window.deleteQuestion = async function (qId) {
+            if (!isModerator) return;
+
+            if (db) {
+                try {
+                    const docRef = doc(db, 'townhall_questions', qId);
+                    await deleteDoc(docRef);
+                    showToast("Soalan telah dipadamkan.", "info");
+                } catch (err) {
+                    console.error("Ralat memadam:", err);
+                }
+            }
+        };
+
+        window.handleModLogin = async function (event) {
+            event.preventDefault();
+            const inputEl = document.getElementById('modPinInput');
+            const pinVal = inputEl ? inputEl.value.trim() : '';
+
+            if (!_TARGET_SALTED_HASH) {
+                await initSecurityToken();
+            }
+
+            const inputHashed = await computeSha256(pinVal + ":" + MOD_AUTH_SALT);
+
+            if (inputHashed === _TARGET_SALTED_HASH) {
+                isModerator = true;
+                toggleModUI(true);
+                closeModModal();
+                showToast("Akses Moderator disahkan.", "success");
+            } else {
+                const err = document.getElementById('pinErrorMsg');
+                if (err) err.classList.remove('hidden');
+            }
+        };
+
+        window.logoutModerator = function () {
+            isModerator = false;
+            toggleModUI(false);
+            showToast("Log keluar dari mod pentadbir.", "info");
+        };
+
+        function toggleModUI(active) {
+            const modBar = document.getElementById('modBar');
+            const statusText = document.getElementById('modStatusText');
+            if (active) {
+                if (modBar) modBar.classList.remove('hidden');
+                if (statusText) statusText.innerText = "Urus Setia (Aktif)";
+            } else {
+                if (modBar) modBar.classList.add('hidden');
+                if (statusText) statusText.innerText = "Moderator";
+            }
+            renderQuestions();
+        }
+
+        window.openModModal = function () {
+            if (isModerator) {
+                logoutModerator();
+            } else {
+                document.getElementById('modModal').classList.remove('hidden');
+                const pinInput = document.getElementById('modPinInput');
+                if (pinInput) {
+                    pinInput.value = '';
+                    pinInput.focus();
+                }
+                const err = document.getElementById('pinErrorMsg');
+                if (err) err.classList.add('hidden');
+            }
+        };
+
+        window.closeModModal = function () {
+            document.getElementById('modModal').classList.add('hidden');
+            document.getElementById('pinErrorMsg').classList.add('hidden');
+            document.getElementById('modPinInput').value = '';
+        };
+
+        window.toggleProjectorView = function () {
+            const modal = document.getElementById('projectorModal');
+            if (modal) {
+                modal.classList.toggle('hidden');
+                updateProjectorView();
+                initQrCodes();
+            }
+        };
+
+        window.openQrModal = function () {
+            document.getElementById('qrModal').classList.remove('hidden');
+            initQrCodes();
+        };
+
+        window.closeQrModal = function () {
+            document.getElementById('qrModal').classList.add('hidden');
+        };
+
+        window.copyShareUrl = function () {
+            const urlInput = document.getElementById('shareUrlInput');
+            if (urlInput) {
+                urlInput.select();
+                urlInput.setSelectionRange(0, 99999);
+                try {
+                    document.execCommand('copy');
+                    showToast("Pautan berjaya disalin ke papan keratan!", "success");
+                } catch (e) {
+                    showToast("Gagal menyalin pautan.", "error");
+                }
+            }
+        };
+
+        function setConnectionStatus(connected, label) {
+            const badge = document.getElementById('connectionBadge');
+            if (!badge) return;
+            if (connected) {
+                badge.className = "inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 text-[11px] px-2.5 py-0.5 rounded-full border border-emerald-500/30 font-semibold tracking-wide";
+                badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 pulse-live"></span> <span>${label}</span>`;
+            } else {
+                badge.className = "inline-flex items-center gap-1.5 bg-amber-500/20 text-amber-300 text-[11px] px-2.5 py-0.5 rounded-full border border-amber-500/30 font-semibold tracking-wide";
+                badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400"></span> <span>${label}</span>`;
+            }
+        }
+
+        function updateStats() {
+            const totalQ = questionsList.filter(q => q.status !== 'hidden').length;
+            const totalV = questionsList.reduce((acc, q) => acc + (q.votes || 0), 0);
+            const qEl = document.getElementById('totalQuestionsCount');
+            const vEl = document.getElementById('totalVotesCount');
+            if (qEl) qEl.innerText = totalQ;
+            if (vEl) vEl.innerText = totalV;
+        }
+
+        function updateProjectorView() {
+            const pinned = questionsList.find(q => q.isPinned);
+            const catEl = document.getElementById('projCategory');
+            const textEl = document.getElementById('projText');
+            const authEl = document.getElementById('projAuthor');
+            const voteEl = document.getElementById('projVotes');
+
+            if (pinned) {
+                if (catEl) catEl.innerText = pinned.category || 'Umum';
+                if (textEl) textEl.innerText = `"${pinned.content}"`;
+                if (authEl) authEl.innerText = `— ${pinned.authorName} ${pinned.authorUnit ? '(' + pinned.authorUnit + ')' : ''}`;
+                if (voteEl) voteEl.innerText = pinned.votes || 0;
+            } else {
+                if (catEl) catEl.innerText = "SESI TOWNHALL CPRSK KKM";
+                if (textEl) textEl.innerText = "Sila sematkan soalan dari senarai untuk dipaparkan di skrin pentas utama.";
+                if (authEl) authEl.innerText = "— Urus Setia CPRSK KKM";
+                if (voteEl) voteEl.innerText = "0";
+            }
+        }
+
+        window.toggleAnonMode = function () {
+            const isAnon = document.getElementById('anonToggle').checked;
+            const fields = document.getElementById('userInfoFields');
+            if (isAnon) {
+                fields.classList.add('opacity-50', 'pointer-events-none');
+            } else {
+                fields.classList.remove('opacity-50', 'pointer-events-none');
+            }
+        };
+
+        window.updateCharCount = function () {
+            const text = document.getElementById('questionContent').value;
+            const counter = document.getElementById('charCounter');
+            if (counter) counter.innerText = `${text.length} / 300`;
+        };
+
+        window.setSortMode = function (mode) {
+            currentSortMode = mode;
+            const topBtn = document.getElementById('sortTopBtn');
+            const newBtn = document.getElementById('sortNewestBtn');
+            const ansBtn = document.getElementById('sortAnsweredBtn');
+
+            const activeClass = 'flex-1 md:flex-none px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-sky-700 shadow-sm';
+            const inactiveClass = 'flex-1 md:flex-none px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition';
+
+            if (topBtn) topBtn.className = mode === 'top' ? activeClass : inactiveClass;
+            if (newBtn) newBtn.className = mode === 'newest' ? activeClass : inactiveClass;
+            if (ansBtn) ansBtn.className = mode === 'answered' ? activeClass : inactiveClass;
+            
+            renderQuestions();
+        };
+
+        window.applyFilters = function () {
+            renderQuestions();
+        };
+
+        window.exportQuestionsCSV = function () {
+            if (questionsList.length === 0) {
+                showToast("Tiada soalan untuk dieksport.", "error");
+                return;
+            }
+
+            let csvContent = "\uFEFF"; // UTF-8 BOM for Microsoft Excel compatibility
+            csvContent += "ID,Tarikh/Masa,Kategori,Nama Pegawai,Fasiliti,Anonim,Teks Soalan,Undian,Status\n";
+
+            questionsList.forEach(q => {
+                const dateStr = new Date(q.createdAt || Date.now()).toLocaleString('ms-MY');
+                const cleanContent = `"${(q.content || '').replace(/"/g, '""')}"`;
+                const row = [
+                    q.id,
+                    `"${dateStr}"`,
+                    `"${q.category || ''}"`,
+                    `"${q.authorName || ''}"`,
+                    `"${q.authorUnit || ''}"`,
+                    q.isAnonymous ? 'YA' : 'TIDAK',
+                    cleanContent,
+                    q.votes || 0,
+                    q.status || 'active'
+                ].join(",");
+                csvContent += row + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Townhall_KKM_CPRSK_Soalan_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showToast("Fail CSV berjaya dimuat turun!", "success");
+        };
+
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            if (!container) return;
+
+            const categoryFilter = document.getElementById('filterCategorySelect') ? document.getElementById('filterCategorySelect').value : 'ALL';
+            const searchKeyword = document.getElementById('searchInput') ? document.getElementById('searchInput').value.toLowerCase().trim() : '';
+
+            let filtered = questionsList.filter(q => {
+                if (q.status === 'hidden') return false;
+                if (currentSortMode === 'answered' && q.status !== 'answered') return false;
+                if (currentSortMode !== 'answered' && q.status === 'answered') return false;
+                if (categoryFilter !== 'ALL' && q.category !== categoryFilter) return false;
+                if (searchKeyword) {
+                    const text = (q.content + ' ' + q.authorName + ' ' + q.category + ' ' + (q.authorUnit || '')).toLowerCase();
+                    if (!text.includes(searchKeyword)) return false;
+                }
+                return true;
+            });
+
+            if (currentSortMode === 'top') {
+                filtered.sort((a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0) || (b.votes || 0) - (a.votes || 0));
+            } else if (currentSortMode === 'newest') {
+                filtered.sort((a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0) || (b.createdAt || 0) - (a.createdAt || 0));
+            } else {
+                filtered.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl p-8 text-center border border-slate-200 card-elevated space-y-2">
+                        <div class="w-12 h-12 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center mx-auto text-xl">
+                            <i class="fa-regular fa-comments"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-slate-700 text-sm">Tiada Soalan Dijumpai</h4>
+                        <p class="text-xs text-slate-400">Jadilah yang terawal mengemukakan soalan berkaitan topik ini.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(q => {
+                const hasVoted = localVotedQuestions.has(q.id);
+                const isAnswered = q.status === 'answered';
+                const isPinned = q.isPinned;
+
+                return `
+                    <div class="bg-white rounded-2xl p-3.5 sm:p-4 border transition-all card-elevated relative ${isPinned ? 'border-amber-400 bg-amber-50/20 ring-2 ring-amber-400/40' : (isAnswered ? 'border-slate-200 opacity-80' : 'border-slate-200 hover:border-slate-300')}">
+                        
+                        ${isPinned ? `
+                            <div class="absolute -top-2.5 left-4 bg-amber-500 text-slate-950 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1 shadow-sm">
+                                <i class="fa-solid fa-thumbtack"></i> Disemat Di Skrin Pentas
+                            </div>
+                        ` : ''}
+
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="space-y-1.5 flex-1">
+                                <div class="flex flex-wrap items-center gap-2 text-xs">
+                                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-100 text-sky-800 border border-sky-200">
+                                        ${escapeHtml(q.category || 'Umum')}
+                                    </span>
+
+                                    ${isAnswered ? `
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+                                            <i class="fa-solid fa-circle-check"></i> Sudah Dijawab
+                                        </span>
+                                    ` : ''}
+
+                                    <span class="text-slate-400 text-[11px] font-medium">
+                                        <i class="fa-regular fa-clock"></i> ${formatTime(q.createdAt)}
+                                    </span>
+                                </div>
+
+                                <p class="text-xs sm:text-sm font-bold text-slate-800 leading-relaxed font-heading">
+                                    ${escapeHtml(q.content)}
+                                </p>
+
+                                <div class="flex items-center gap-2 text-[11px] text-slate-500 font-semibold pt-0.5">
+                                    <i class="fa-solid ${q.isAnonymous ? 'fa-user-secret text-slate-400' : 'fa-user-circle text-sky-600'}"></i>
+                                    <span>${escapeHtml(q.authorName || 'Anonim')}</span>
+                                    ${q.authorUnit ? `<span class="text-slate-300">•</span><span class="text-slate-400">${escapeHtml(q.authorUnit)}</span>` : ''}
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col items-center">
+                                <button onclick="upvoteQuestion('${q.id}')" title="Undi soalan ini" class="upvote-btn flex flex-col items-center justify-center w-11 h-13 sm:w-12 sm:h-14 rounded-xl border transition-all ${hasVoted ? 'bg-sky-600 text-white border-sky-600 shadow-md shadow-sky-600/30' : 'bg-slate-50 hover:bg-sky-50 text-slate-600 hover:text-sky-600 border-slate-200'}">
+                                    <i class="fa-solid fa-caret-up text-base leading-none"></i>
+                                    <span class="text-xs font-black mt-0.5 font-heading">${q.votes || 0}</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        ${isModerator ? `
+                            <div class="mt-3 pt-2.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 bg-slate-50/80 -mx-3.5 sm:-mx-4 -mb-3.5 sm:-mb-4 p-2.5 px-4 rounded-b-2xl">
+                                <span class="text-[10px] font-black text-amber-800 uppercase tracking-wider">Kawalan Urus Setia:</span>
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    <button onclick="togglePinQuestion('${q.id}')" class="px-2.5 py-1 text-xs font-semibold rounded-lg border bg-white ${isPinned ? 'text-amber-800 border-amber-300 bg-amber-100' : 'text-slate-700 border-slate-200 hover:bg-slate-100'} transition">
+                                        <i class="fa-solid fa-thumbtack"></i> ${isPinned ? 'Nyahsemat' : 'Semat ke Pentas'}
+                                    </button>
+                                    <button onclick="markAsAnswered('${q.id}')" class="px-2.5 py-1 text-xs font-semibold rounded-lg border bg-white ${isAnswered ? 'text-emerald-700 border-emerald-300 bg-emerald-50' : 'text-slate-700 border-slate-200 hover:bg-slate-100'} transition">
+                                        <i class="fa-solid fa-check"></i> ${isAnswered ? 'Batal Selesai' : 'Tanda Dijawab'}
+                                    </button>
+                                    <button onclick="deleteQuestion('${q.id}')" class="px-2.5 py-1 text-xs font-semibold text-red-600 border border-red-200 rounded-lg hover:bg-red-50 bg-white transition">
+                                        <i class="fa-solid fa-trash"></i> Padam
+                                    </button>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showToast(message, type = "info") {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+            const toast = document.createElement('div');
+
+            let bgClass = "bg-slate-900 text-white";
+            if (type === "success") bgClass = "bg-emerald-600 text-white";
+            if (type === "error") bgClass = "bg-red-600 text-white";
+
+            toast.className = `${bgClass} text-xs font-bold px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 border border-white/10 transition-all transform translate-y-2 opacity-0`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : (type === 'error' ? 'fa-triangle-exclamation' : 'fa-circle-info')}"></i> <span>${escapeHtml(message)}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 30);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/[&<>"']/g, function (m) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                }[m];
+            });
+        }
+
+        function formatTime(timestamp) {
+            if (!timestamp) return 'Baru sahaja';
+            const diff = Math.floor((Date.now() - timestamp) / 1000);
+            if (diff < 60) return 'Baru sahaja';
+            if (diff < 3600) return `${Math.floor(diff / 60)} minit lepas`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)} jam lepas`;
+            return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
